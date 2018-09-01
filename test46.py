@@ -1,14 +1,6 @@
-'''
-把数字翻译成字符串
-给定一个数字，我们按照如下规则把它翻译为26个英文字母，0-a，25-z。
-一个数字可能有多个翻译。
-例如，12258有5种不同的翻译。分别是bccfi，bwfi，bczi，mcfi，mzi。
-请编程实现一个函数，用来计算一个数字有多少种不同的翻译方案。
-'''
-class test46():
-    def GetTranslationCount(self,n):
-        if n < 0:
-            return 0
+class Solution():
+    # 方法1：循环
+    def getTranslationCount1(self,n):
         strN = str(n)
         counts = [0]*len(strN)
         num = len(strN)-1
@@ -29,9 +21,16 @@ class test46():
             i -= 1
         return counts[0]
 
-
-ns = [1,22,34224532,-1,0,25,26]
-t = test46()
-for i in ns:
-    count = t.GetTranslationCount(i)
-    print(count)
+    # 方法2：递归
+    def getTranslationCount2(self,n):
+        def recursive(string,length,i):
+            if i == length:
+                return 1
+            if i+1 < length and 9 < int(string[i:i+2]) < 26:
+                return recursive(string,length,i+2)+ \
+                       recursive(string,length,i+1)
+            else:
+                return recursive(string,length,i+1)
+        
+        string = str(n)
+        return recursive(string,len(string),0)

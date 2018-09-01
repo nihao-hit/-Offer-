@@ -1,13 +1,12 @@
-'''
-1~n整数中1出现的次数
-输入一个整数n，求1~n这n个整数的十进制表示中1出现的次数。
-例如，输入12，1~12中出现了1，10，11，12，1一共出现了5次。
-'''
-class test43():
-    def NumberOf1Between1AndN(self,n):
+class Solution():
+    # 方法1：遍历1-N的每个整数，求每位上1的个数
+    def numberOf1Between1AndN1(self,n):
+        '''
+        :type n:int
+        :rtype:int
+        '''
         if n < 1:
             return 0
-        global count
         count = 0
         for i in range(1,n+1):
             j = i
@@ -16,10 +15,24 @@ class test43():
                     count += 1
                 j //= 10
         return count
-
-
-t = test43()
-nList = [5,10,55,99,0,1,10000]
-for i in nList:
-    count = t.NumberOf1Between1AndN(i)
-    print(count)
+    
+    # 方法2：
+    def numberOf1Between1AndN2(self,n):
+        chars = str(n)
+        length = len(chars)
+        count = int(chars[:length-1])
+        if int(chars[length-1]) >= 1:
+            count += 1
+        if int(chars[0]) == 1:
+            count += int(chars[1:])+1
+        else:
+            count += pow(10,length-1)
+        for i in range(length-2,0,-1):
+            prev = int(chars[:i])
+            count += prev*pow(10,length-i-1)
+            if int(chars[i]) == 1:
+                after = int(chars[i+1:])
+                count += after+1
+            elif int(chars[i]) > 1:
+                count += pow(10,length-i-1)
+        return count
