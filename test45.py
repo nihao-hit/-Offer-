@@ -1,5 +1,5 @@
 from functools import cmp_to_key
-class Solution():
+class Solution:
     # 方法1：快排
     def printMinNumber1(self,array):
         strArray = [str(i) for i in array]

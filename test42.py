@@ -1,4 +1,4 @@
-class test42():
+class Solution:
     def findGreatestSumOfSubArray(self,array):
         if array is None or len(array) == 0:
             return -1

@@ -1,4 +1,4 @@
-class Solution():
+class Solution:
     # 方法1：循环
     def getTranslationCount1(self,n):
         strN = str(n)

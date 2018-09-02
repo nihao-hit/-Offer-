@@ -1,4 +1,4 @@
-class Solution():
+class Solution:
     # 方法1：遍历1-N的每个整数，求每位上1的个数
     def numberOf1Between1AndN1(self,n):
         '''

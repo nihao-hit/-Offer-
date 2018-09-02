@@ -1,4 +1,4 @@
-class Solution():
+class Solution:
     # 方法1：动态规划
     def getLongestSubstringWithoutDuplication1(self,string):
         '''

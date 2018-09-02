@@ -1,29 +1,34 @@
-'''
-第一个只出现一次的字符
-字符串中第一个只出现一次的字符。
-在字符串中找出第一个只出现一次的字符。
-如输入'abaccdeff'，输出'b'。
-'''
-class test50():
-    def getFirstNotRepeatingStr(self,str):
-        if str is None or len(str) == 0:
-            return 0
-        values = {}
-        for i in str:
-            values[i] = 0
-        for i in str:
-            values[i] += 1
-        for k,v in values.items():
-            if v == 1:
-                return k
-        return 0
-'''
-字符流中第一个只出现一次的字符
-例如：当从字符流中只读出前两个字符'go'时，第一个只出现一次的字符是'g'，
-当从该字符流中读出'google'时，第一个只出现一次的字符是'l'。
-'''
-strS = ['',None,'abaccdeff','aaaaaaaa']
-t = test50()
-for i in strS:
-    number = t.getFirstNotRepeatingStr(i)
-    print(number)
+class Solution:
+    def getFirstNotRepeatingStr(self,string):
+        if string is None or len(string) == 0:
+            return None
+        value = {}
+        n = len(string)
+        index = n
+        for i in range(n):
+            value.setdefault(string[i],[]).append(i)
+        for i in value.values():
+            if len(i) == 1 and i[0] < index:
+                index = i[0]
+        return string[index] if index < n else None
+    
+# 题目2：字符流中第一个只出现一次的字符
+class CharStatistics:
+    def __init__(self,val):
+        self.string = val
+        self.index = 0
+        self.indexs = {}
+        self.charIdx = 0
+
+    def read(self):
+        try:
+            temp = self.indexs[self.string[self.index]]
+            temp.append(self.index)
+            self.string[temp[-1]] = self.string[temp[-2]] = '$'
+        except:
+            self.indexs[self.string[self.index]] = [self.index]
+        finally:
+            self.index += 1
+            while self.charIdx < self.index and self.string[self.charIdx] == '$':
+                self.charIdx += 1
+        return self.string[self.charIdx] if self.charIdx < self.index else None

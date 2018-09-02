@@ -68,34 +68,32 @@ class Solution:
     # 归并排序
     def mergeSort(self,nums):
         def merge(nums,left,mid,right):
-            # mid为左边序列的结尾
             temp = []
-            i,j = left,mid+1
-            while i <= mid and j <= right:
+            i,j = left,mid
+            while i <= mid-1 and j <= right:
                 if nums[i] < nums[j]:
                     temp.append(nums[i])
                     i += 1
                 else:
                     temp.append(nums[j])
                     j += 1
-            if i <= mid:
-                temp.extend(nums[i:mid+1])
-            if j <= right:
-                temp.extend(nums[j:right+1])
+            while i <= mid-1:
+                temp.append(nums[i])
+                i += 1
+            while j <= right:
+                temp.append(nums[j])
+                j += 1
             nums[left:right+1] = temp
         
-        def mPass(nums,length,n):
-            i = 0
-            while i+length*2-1 < n:
-                merge(nums,i,i+length-1,i+2*length-1)
-                i = i+length*2
-            if i+length < n:
-                merge(nums,i,i+length-1,n-1)
-        
-        length,n = 1,len(nums)
-        while length < n:
-            mPass(nums,length,n)
-            length *= 2
+        n = len(nums)
+        k = 1
+        while k < n:
+            for i in range(0,n,k*2):
+                if i+2*k-1 < n:
+                    merge(nums,i,i+k,i+k*2-1)
+                elif i+k < n:
+                    merge(nums,i,i+k,n-1)
+            k *= 2
         return nums
 
     # 堆排序

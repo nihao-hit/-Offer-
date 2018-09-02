@@ -1,5 +1,5 @@
 from functools import reduce
-class Solution():
+class Solution:
     def getMaxValue(self,gift):
         if gift is None or len(gift) == 0:
             return 0
