@@ -1,16 +1,26 @@
-'''
-求1+2+···+n
-求1+2+···+n，要求不能使用乘除法，if，while，for，else，switch，case等关键字及条件判断语句(A?B:C)
-'''
-class test64():
-    def Sum_Solution(self,n):
-        return self.sumN(n)
-    def sum0(self,n):
-        return n
-    def sumN(self,n):
-        fun = {False:self.sum0,True:self.sumN}
-        return n+fun[not not n](n-1)
-    def Sum_Solution2(self,n):
-        return n and self.Sum_Solution(n-1)+n
-t = test64()
-print(t.Sum_Solution2(5))
+class Solution:
+    # 方法1：利用默认参数求和
+    def sumN1(self,i=[0],sum=[0]):
+        i[0] +=1
+        sum[0] += i[0]
+        return sum[0]
+
+    # 方法2：利用两个函数，
+    # 一个函数充当递归函数的角色，另一个函数处理终止递归的情况。
+    def sumN2(self,n):
+        def sum0(n):
+            return n
+        
+        def sumN(n):
+            fun = {False:sum0,True:sumN}
+            return n+fun[not not (n-1)](n-1)
+        
+        return sumN(n)
+
+    # 方法3：利用and特性递归与终止函数，
+    # and返回最右边为真的表达式或False，or返回最左边为真的表达式或False。
+    def sumN3(self,n):
+        def recursive(n):
+            return n and recursive(n-1)+n
+        
+        return recursive(n)
