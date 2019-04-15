@@ -1,2 +1,1 @@
-# jianzhiOffer
-## 剑指Offer第二版python实现
+# 剑指Offer第二版python实现
